@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
 import catchAsyncErrors from "../middleware/catchAsyncErrors";
 import User from "../models/auth.model";
-import ErrorHandler from "../utils/errorHandler";
+// import ErrorHandler from "../utils/errorHandler";
 import createToken from "../utils/jwtToken";
 import { errorHandler } from "../helpers/dbErrorHandling";
 import { encryptPassword } from "../utils/authUtils";
@@ -22,7 +22,9 @@ export const registerController = catchAsyncErrors(
       const old_user = await User.findOne({ username }).exec();
 
       if (old_user) {
-        return next(new ErrorHandler("This username is already used!", 400));
+        return res.status(400).json({
+          errors: "This username is already used!",
+        });
       }
 
       const user = new User({

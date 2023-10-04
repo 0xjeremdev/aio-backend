@@ -5,15 +5,12 @@ export const validAuth = [
     .notEmpty()
     .isLength({
       min: 3,
-      max: 32,
     })
-    .withMessage("Username must be between 3 to 32 characters"),
-  check("password", "password is required").notEmpty(),
-  check("password")
+    .withMessage("Username must be at least 6 characters."),
+  check("password", "password is required")
+    .notEmpty()
     .isLength({
-      min: 8,
+      min: 6,
     })
-    .withMessage("Password must be at least 8 characters")
-    .matches(/\d/)
-    .withMessage("password must contain a number"),
+    .withMessage("Password must be at least 6 characters."),
 ];
